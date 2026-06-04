@@ -1,0 +1,8 @@
+Moscow Antalia 0
+Moscow Istambul 1
+Moscow Saint-Petersburg 2
+Saint-Petersburg Sochi 3
+Sochi Moscow 4
+Saint-Petersburg Antalia 5
+Antalia Moscow 6
+Antalia Sochi 7
