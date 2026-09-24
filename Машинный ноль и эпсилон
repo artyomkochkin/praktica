@@ -1,0 +1,59 @@
+public class ZeroMachine {
+// Функция, ноль которой ищем: f(x) = x^3 - x - 2
+static double f(double x) {
+    return x * x * x - x - 2;
+}
+
+// Метод бисекции (дихотомии)
+// a и b — границы интервала, eps — точность
+static double bisection(double a, double b, double eps) {
+    if (f(a) * f(b) >= 0) {
+        throw new IllegalArgumentException(
+            "На концах интервала функция должна иметь разные знаки"
+        );
+    }
+    double c;
+    while ((b - a) / 2 > eps) {
+        c = (a + b) / 2;
+        if (f(c) == 0) return c;
+        if (f(a) * f(c) < 0) {
+            b = c;
+        } else {
+            a = c;
+        }
+    }
+    return (a + b) / 2;
+}
+
+// Метод Ньютона (касательных)
+// x0 — начальное приближение, eps — точность
+static double newton(double x0, double eps) {
+    double x = x0;
+    while (Math.abs(f(x)) > eps) {
+        // Численная производная
+        double df = (f(x + 1e-6) - f(x - 1e-6)) / 2e-6;
+        if (df == 0) break;
+        x = x - f(x) / df;
+    }
+    return x;
+}
+
+public static void main(String[] args) {
+    double a = 1.0;   // левая граница
+    double b = 2.0;   // правая граница
+    double eps = 1e-6; // точность
+
+    // Метод бисекции
+    double rootBis = bisection(a, b, eps);
+    System.out.println("Метод бисекции:");
+    System.out.println("  x = " + rootBis);
+    System.out.println("  f(x) = " + f(rootBis));
+
+    // Метод Ньютона
+    double x0 = 1.5; // начальное приближение
+    double rootNewt = newton(x0, eps);
+    System.out.println("Метод Ньютона:");
+    System.out.println("  x = " + rootNewt);
+    System.out.println("  f(x) = " + f(rootNewt));
+}
+}
